@@ -1,13 +1,17 @@
+import requests, string, discord, random, datetime, os
 from discord.ext.commands.errors import MissingRequiredArgument
-import requests, string, discord, random, datetime
 from discord.ext import commands, tasks
 
 
-owners = [852810538487906334] # your discord id, can put multiple separated by commas e.g [969696, 1234567]
+owners = [12334567890] # your discord id, can put multiple separated by commas e.g [969696, 1234567]
 hostname = 'box.your.domain'
-admin_user = 'admin_account@your.domain'
-admin_pass = 'candicenutsfitinyamouth'
-token = 'discordbottoken'
+
+# DON'T TOUCH THIS
+token = os.getenv("DISCORD_TOKEN")
+admin_user = os.getenv("ADMIN_USER")
+admin_pass = os.getenv("ADMIN_PASS")
+#
+
 password_characters = string.ascii_letters + string.digits + string.punctuation
 
 client = commands.Bot(command_prefix='.')
@@ -184,6 +188,4 @@ async def rmalias(ctx, alias):
 
 
             
-client.run(f'{token}')
-
-
+client.run(token)
