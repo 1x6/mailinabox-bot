@@ -6,11 +6,10 @@ from discord.ext import commands, tasks
 owners = [12334567890] # your discord id, can put multiple separated by commas e.g [969696, 1234567]
 hostname = 'box.your.domain'
 
-# DON'T TOUCH THIS
-token = os.getenv("DISCORD_TOKEN")
-admin_user = os.getenv("ADMIN_USER")
-admin_pass = os.getenv("ADMIN_PASS")
-#
+token = 'BOT_TOKEN'
+admin_user = 'admin@your.domain'
+admin_pass = 'password'
+
 
 password_characters = string.ascii_letters + string.digits + string.punctuation
 
