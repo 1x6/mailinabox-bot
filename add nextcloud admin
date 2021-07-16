@@ -1,0 +1,1 @@
+sudo -u www-data php /usr/local/lib/owncloud/occ group:adduser admin $ADMIN <- being the user
