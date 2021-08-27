@@ -1,4 +1,4 @@
-import requests, string, discord, random, datetime, os
+import requests, string, discord, random, datetime, os, binascii
 from discord.ext.commands.errors import MissingRequiredArgument
 from discord.ext import commands, tasks
 
@@ -185,6 +185,45 @@ async def rmalias(ctx, alias):
                 embed.add_field(name="Error message:", value=f"`{remove_alias.text}`", inline=False) 
                 await ctx.channel.send(embed=embed)
 
+@client.command()
+async def rndalias(ctx, email) :
+    if int(ctx.message.author.id) in owners:
+            alias = binascii.b2a_hex(os.urandom(15))
+            alias_data = {
+                        'update_if_exists': '0',
+                        'address': f'{alias}',
+                        'forwards_to': f'{email}',
+                        'permitted_senders': ''
+                        }
 
+            add_alias = requests.post(f'https://{hostname}/admin/mail/aliases/add', auth=(f'{admin_user}', f'{admin_pass}'), data=alias_data)
+            
+            if 'alias added' in add_alias.text :
+                embed=discord.Embed(
+                                    title="Alias added", 
+                                    description="gg",
+                                    color=0x109319,
+                                    timestamp=datetime.datetime.utcnow()
+                                    )
+
+                
+                embed.set_author(name=f"Added by {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+
+                embed.add_field(name=f"`{alias}` now forwards to `{email}`", value=f"‎", inline=False) # invis char in value 
+
+                await ctx.channel.send(embed=embed)
+            
+            else:
+            
+                embed=discord.Embed(
+                                    title="Error", 
+                                    description="oh shit",
+                                    color=0x109319,
+                                    timestamp=datetime.datetime.utcnow()
+                                    )
+
+                embed.set_author(name=f"Command run by {ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+                embed.add_field(name="Error message:", value=f"`{add_alias.text}`", inline=False) 
+                await ctx.channel.send(embed=embed)
             
 client.run(token)
