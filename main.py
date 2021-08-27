@@ -1,4 +1,4 @@
-import requests, string, discord, random, datetime, os, binascii
+import requests, string, discord, random, datetime, os, secrets
 from discord.ext.commands.errors import MissingRequiredArgument
 from discord.ext import commands, tasks
 
@@ -9,6 +9,8 @@ hostname = 'box.your.domain'
 token = 'BOT_TOKEN'
 admin_user = 'admin@your.domain'
 admin_pass = 'password'
+
+alias_domain = '@sussy.space'
 
 
 password_characters = string.ascii_letters + string.digits + string.punctuation
@@ -188,7 +190,7 @@ async def rmalias(ctx, alias):
 @client.command()
 async def rndalias(ctx, email) :
     if int(ctx.message.author.id) in owners:
-            alias = binascii.b2a_hex(os.urandom(15))
+            alias = secrets.token_hex(15) + alias_domain
             alias_data = {
                         'update_if_exists': '0',
                         'address': f'{alias}',
