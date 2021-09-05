@@ -1,1 +1,3 @@
-sudo -u www-data php /usr/local/lib/owncloud/occ group:adduser admin $ADMIN <- being the user
+$USERNAME is the usrname u want
+sudo -u www-data php /usr/local/lib/owncloud/occ user:add admin $USERNAME
+sudo -u www-data php /usr/local/lib/owncloud/occ group:adduser admin $USERNAME 
